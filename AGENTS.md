@@ -1,3 +1,5 @@
+**Deutsch** · [English](AGENTS.en.md)
+
 # AGENTS.md – Referenz für Menschen und KI-Assistenten
 
 Diese Datei beschreibt vollständig, wie der Maschinenraum konfiguriert und erweitert wird. Eine KI soll mit ihr allein Bots einrichten, Räume bauen, Plugins schreiben und Bibliotheken erstellen können. Die Bedienoberfläche ist deutsch, daher sind auch Feldnamen deutsch.

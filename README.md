@@ -1,10 +1,10 @@
+**Deutsch** · [English](README.en.md)
+
 # Maschinenraum
 
 **Ein 3D-Leitstand für die Hintergrund-Dienste eines Macs.** Jeder Dienst (launchd-LaunchAgent) wird zu einer kleinen Figur in einem begehbaren Raumschiff-Büro. Die Körperfarbe zeigt den Zustand: grün = ok, gelb = läuft, rot = Fehler, grau = aus. Ein Klick auf eine Figur öffnet das Bedienfeld zum Starten, Stoppen, Pausieren, Deaktivieren und Protokoll-Lesen.
 
 ![Gesamtansicht: Büro, Lounge, Maschinenraum, Sekretariat und Arzt](docs/gesamt.jpg)
-
-*English: A 3D control room (three.js) for macOS launchd agents. Bots, rooms and furniture are configured in JSON. A local Python server (no dependencies) collects live status. Optional: Claude Code analyses and repairs failing jobs. See `AGENTS.md` for the full configuration reference. The UI is in German.*
 
 ## Was es kann
 

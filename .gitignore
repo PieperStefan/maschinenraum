@@ -4,6 +4,8 @@
 !/.gitignore
 !/README.md
 !/AGENTS.md
+!/AGENTS.en.md
+!/README.en.md
 !/LICENSE
 !/server.py
 !/start.sh
