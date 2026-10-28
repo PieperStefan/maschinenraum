@@ -286,6 +286,38 @@ def sammeln():
             "jobs": jobs}
 
 
+DEMO = os.environ.get("MR_DEMO") == "1"
+
+
+def demo_status():
+    """Erfundene Beispieldaten (MR_DEMO=1): zum Ausprobieren und für Bildschirmfotos, ohne echte Dienste."""
+    jetzt = time.time()
+
+    def job(label, gruppe, status, plan, vor_min, in_min=None, code=0, dauer=False):
+        return {"label": label, "gruppe": gruppe, "status": status, "code": code, "laeuft": status == "run" or dauer, "geladen": status != "off",
+                "deaktiviert": False, "dauer": dauer, "plan": plan, "rhythmus": plan, "zuletzt": iso(jetzt - vor_min * 60),
+                "naechst": iso(jetzt + in_min * 60) if in_min else None}
+    jobs = [job("com.example.backup-nacht", "Sicherungen", "ok", "täglich 01:30", 420, 600),
+            job("com.example.backup-fotos", "Sicherungen", "ok", "täglich 03:00", 330, 690),
+            job("com.example.backup-pruefung", "Sicherungen", "ok", "So 04:00", 2000, 4000),
+            job("com.example.mail-abruf", "Mail", "err", "alle 15 min", 4, 11, code=1),
+            job("com.example.konten", "Sonstige", "run", "alle 3 h", 1, 180),
+            job("com.example.pruefer", "Sonstige", "ok", "täglich 06:45", 600, 800),
+            job("homebrew.mxcl.postgresql", "Homebrew-Dienste", "ok", "dauerhaft", 3000, dauer=True),
+            job("homebrew.mxcl.nginx", "Homebrew-Dienste", "ok", "dauerhaft", 3000, dauer=True),
+            job("com.example.sync", "Sonstige", "off", "alle 30 min", 9000)]
+    sich = [dict(j, name=n) for n, j in zip(["Nacht-Sicherung", "Fotos", "Prüfung"], jobs[:3])]
+    gruppen = {}
+    for j in jobs:
+        g = gruppen.setdefault(j["gruppe"], {"name": j["gruppe"], "anzahl": 0, "fehler": 0, "aus": 0})
+        g["anzahl"] += 1
+        g["fehler"] += j["status"] == "err"
+    zeilen = [["CPU-Last", "18 %", "ok"], ["Arbeitsspeicher 64 GB", "52 % belegt", "ok"], ["Systemplatte", "41 % · 1.2 TB frei", "ok"],
+              ["Dauerdienste", "2 / 2 laufen", "ok"], ["Aufgaben mit Fehler", "1", "err"], ["Temperatur", "normal", "ok"]]
+    return {"erzeugt": iso(jetzt), "system": {"zeilen": zeilen, "status": "err"}, "sicherungen": sich, "cron": [],
+            "gruppen": list(gruppen.values()), "jobs": jobs}
+
+
 def sammler():
     while True:
         try:
@@ -781,6 +813,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     liste = [a for a in liste if a["status"] != "geloescht"]
                 json_schreiben(AUFTRAEGE, liste)
                 return self.antwort({"ok": True, "auftraege": liste})
+            if DEMO and self.path in ("/api/aktion", "/api/fall", "/api/mutter"):
+                return self.antwort({"ok": False, "meldung": "Demo-Modus: hier wird nichts ausgeführt.", "antwort": "Demo-Modus: Mutter antwortet erst mit echter Konfiguration."})
             if d.get("aktion") == "freigabe":
                 return self.antwort(freigabe(str(d.get("label", ""))))
             self.antwort(aktion(str(d.get("label", "")), str(d.get("aktion", ""))))
@@ -793,7 +827,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if p == "/api/config":
             return self.antwort(seiten_config())
         if p == "/api/status":
-            return self.antwort(json_datei(os.path.join(DATEN, "status.json"), {}))
+            return self.antwort(demo_status() if DEMO else json_datei(os.path.join(DATEN, "status.json"), {}))
         if p == "/api/plugin":
             return self.antwort(plugin_abfragen((q.get("name") or [""])[0]))
         if p == "/api/protokoll":
@@ -820,9 +854,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
 if __name__ == "__main__":
     KERN = {"zustand": zustand, "iso": iso, "schwaerzen": schwaerzen, "pfad": pfad, "cfg": CFG}
     plugins_laden()
-    threading.Thread(target=sammler, daemon=True).start()
+    if not DEMO:
+        threading.Thread(target=sammler, daemon=True).start()
     socketserver.ThreadingTCPServer.allow_reuse_address = True
     socketserver.ThreadingTCPServer.daemon_threads = True
     with socketserver.ThreadingTCPServer(("127.0.0.1", PORT), Handler) as srv:
-        print(time.strftime("%d.%m.%Y %H:%M:%S"), f"Maschinenraum läuft auf 127.0.0.1:{PORT} · Konfiguration {os.path.relpath(CFG_PFAD, HERE)} · Plugins: {', '.join(PLUGINS) or '–'}", flush=True)
+        print(time.strftime("%d.%m.%Y %H:%M:%S"), f"Maschinenraum läuft auf 127.0.0.1:{PORT}{' · DEMO' if DEMO else ''} · Konfiguration {os.path.relpath(CFG_PFAD, HERE)} · Plugins: {', '.join(PLUGINS) or '–'}", flush=True)
         srv.serve_forever()

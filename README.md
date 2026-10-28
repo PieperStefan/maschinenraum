@@ -2,6 +2,8 @@
 
 **Ein 3D-Leitstand für die Hintergrund-Dienste eines Macs.** Jeder Dienst (launchd-LaunchAgent) wird zu einer kleinen Figur in einem begehbaren Raumschiff-Büro. Die Körperfarbe zeigt den Zustand: grün = ok, gelb = läuft, rot = Fehler, grau = aus. Ein Klick auf eine Figur öffnet das Bedienfeld zum Starten, Stoppen, Pausieren, Deaktivieren und Protokoll-Lesen.
 
+![Gesamtansicht: Büro, Lounge, Maschinenraum, Sekretariat und Arzt](docs/gesamt.jpg)
+
 *English: A 3D control room (three.js) for macOS launchd agents. Bots, rooms and furniture are configured in JSON. A local Python server (no dependencies) collects live status. Optional: Claude Code analyses and repairs failing jobs. See `AGENTS.md` for the full configuration reference. The UI is in German.*
 
 ## Was es kann
@@ -18,6 +20,12 @@
   - **Sekretariat**: Rechtsklick auf einen Bot. Claude untersucht Skripte und Protokolle, nur lesend, und macht 3 Vorschläge.
   - **Arzt**: Mit einem Vorschlag repariert Claude den Bot. Vorher legt er Sicherungen an, löscht nichts, kein sudo. Danach startet die Aufgabe neu.
 
+## Bilder
+
+| Büro | Maschinenraum | Sekretariat & Arzt |
+|---|---|---|
+| ![Büro mit Bots an den Schreibtischen und der System-Tafel](docs/buero.jpg) | ![Maschinenraum mit Reaktor, Tresor und Sicherungstafel](docs/maschinenraum.jpg) | ![Sekretariat und Arzt für die Fehleranalyse](docs/sekretariat.jpg) |
+
 ## Schnellstart
 
 Voraussetzung: macOS mit dem mitgelieferten `/usr/bin/python3`. Zusatzpakete sind nicht nötig. Die Seite lädt three.js aus dem jsDelivr-CDN.
@@ -28,6 +36,8 @@ git clone <dieses-repository> maschinenraum && cd maschinenraum
 ```
 
 Dann im Browser `http://127.0.0.1:8790` öffnen und aufs Zahnrad klicken.
+
+**Nur anschauen, ohne echte Dienste:** `MR_DEMO=1 ./start.sh` zeigt erfundene Beispieldaten. Im Demo-Modus wird nichts ausgeführt.
 
 Ohne eigene Konfiguration gilt `config.example.json`. Sie zeigt alle LaunchAgents, die nicht von Apple stammen, und einige Beispiel-Bots.
 

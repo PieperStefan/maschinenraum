@@ -12,6 +12,7 @@
 !/raeume/
 !/plugins/
 !/scripts/
+!/docs/
 *.bak*
 *.log
 __pycache__/

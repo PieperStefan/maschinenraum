@@ -26,6 +26,8 @@ Diese Datei beschreibt vollständig, wie der Maschinenraum konfiguriert und erwe
 | `plugins/*.py`, `privat/plugins/*.py` | Zusätzliche Datenquellen für Bots |
 | `daten/` | `status.json`, `faelle.json`, `auftraege.json`, `behandlungen.log` (Laufzeit) |
 
+Demo-Modus: `MR_DEMO=1` liefert erfundene Beispieldaten, sammelt nichts und führt nichts aus (für Tests und Bildschirmfotos).
+
 Konfiguration: `$MR_CONFIG`, sonst `privat/config.json`, sonst `config.example.json`. Port: `$MR_PORT`, sonst `"port"` (Standard 8790).
 
 ### HTTP-API (alles relativ zur Seite)
