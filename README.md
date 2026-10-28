@@ -1,5 +1,7 @@
 **Deutsch** · [English](README.en.md)
 
+![Aufrufe](https://komarev.com/ghpvc/?username=maschinenraum-repo&color=38bdf8&style=flat-square&label=Aufrufe%20seit%2028.10.2026)
+
 # Maschinenraum
 
 **Ein 3D-Leitstand für die Hintergrund-Dienste eines Macs.** Jeder Dienst (launchd-LaunchAgent) wird zu einer kleinen Figur in einem begehbaren Raumschiff-Büro. Die Körperfarbe zeigt den Zustand: grün = ok, gelb = läuft, rot = Fehler, grau = aus. Ein Klick auf eine Figur öffnet das Bedienfeld zum Starten, Stoppen, Pausieren, Deaktivieren und Protokoll-Lesen.

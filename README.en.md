@@ -1,5 +1,7 @@
 [Deutsch](README.md) · **English**
 
+![Views](https://komarev.com/ghpvc/?username=maschinenraum-repo&color=38bdf8&style=flat-square&label=views%20since%202026--10--28)
+
 # Maschinenraum (“engine room”)
 
 **A 3D control room for the background services of a Mac.** Every service (launchd LaunchAgent) becomes a small robot in a walkable spaceship office. Its body color shows the state: green = ok, yellow = running, red = error, grey = off. Click a robot to open its control panel: start, stop, pause, disable, read logs.
