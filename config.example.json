@@ -1,0 +1,178 @@
+{
+ "titel": "Maschinenraum",
+ "rechner": "Mac",
+ "benutzer": "Du",
+ "port": 8790,
+ "eigenes_label": "local.maschinenraum",
+ "check_titel": "SYSTEM-CHECK",
+ "prefixe": [],
+ "gruppen": [
+  {
+   "name": "Sicherungen",
+   "muster": "backup|sicherung"
+  },
+  {
+   "name": "Mail",
+   "muster": "mail"
+  },
+  {
+   "name": "Homebrew-Dienste",
+   "muster": "^homebrew\\."
+  }
+ ],
+ "sicherungen": [
+  {
+   "name": "Nacht-Sicherung",
+   "label": "com.example.backup-nacht"
+  },
+  {
+   "name": "Prüfung",
+   "label": "com.example.backup-pruefung"
+  }
+ ],
+ "laufwerke": [],
+ "exit_codes": {},
+ "claude": "~/.local/bin/claude",
+ "portal": {
+  "name": "Mein Portal",
+  "untertitel": "Alle Dienste & Links",
+  "url": "http://{host}:8080/"
+ },
+ "welt": {
+  "bibliothek": "standard",
+  "raeume": [
+   {
+    "vorlage": "buero",
+    "mitte": [
+     0,
+     -10
+    ]
+   },
+   {
+    "vorlage": "lounge",
+    "mitte": [
+     0,
+     -29
+    ]
+   },
+   {
+    "vorlage": "maschinenraum",
+    "mitte": [
+     0,
+     -49
+    ]
+   },
+   {
+    "vorlage": "sekretariat",
+    "mitte": [
+     -5,
+     6
+    ]
+   },
+   {
+    "vorlage": "arzt",
+    "mitte": [
+     5,
+     6
+    ]
+   }
+  ]
+ },
+ "agenten": [
+  {
+   "id": "sicherung",
+   "name": "Sicherung",
+   "platz": "tisch1",
+   "arbeit": "sicherung",
+   "quelle": {
+    "art": "sicherungen"
+   }
+  },
+  {
+   "id": "post",
+   "name": "Mail-Abruf",
+   "platz": "tisch2",
+   "arbeit": "post",
+   "quelle": {
+    "art": "aufgaben",
+    "labels": [
+     "com.example.mail-abruf"
+    ]
+   }
+  },
+  {
+   "id": "konten",
+   "name": "Konten-Abgleich",
+   "platz": "tisch3",
+   "arbeit": "konten",
+   "quelle": {
+    "art": "aufgaben",
+    "labels": [
+     "com.example.konten"
+    ]
+   },
+   "protokoll": "daten/beispiel-konten.log"
+  },
+  {
+   "id": "pruefer",
+   "name": "Prüfer",
+   "platz": "bett",
+   "arbeit": "pruefen",
+   "quelle": {
+    "art": "aufgaben",
+    "labels": [
+     "com.example.pruefer"
+    ]
+   }
+  },
+  {
+   "id": "pause",
+   "name": "Ruhender Bot",
+   "platz": "tisch4",
+   "quelle": {
+    "art": "fest",
+    "status": "off",
+    "text": "pausiert"
+   },
+   "info": "Ein Bot mit festem Zustand – nützlich für Dienste, die (noch) nicht als LaunchAgent laufen."
+  },
+  {
+   "id": "waechter",
+   "name": "System-Wächter",
+   "start": [
+    3,
+    -7
+   ],
+   "quelle": {
+    "art": "system"
+   },
+   "info": "Zeigt alle Aufgaben, die gerade Probleme haben."
+  },
+  {
+   "id": "homebrew",
+   "name": "Homebrew-Dienste",
+   "start": [
+    -6,
+    -26
+   ],
+   "quelle": {
+    "art": "gruppe",
+    "gruppe": "Homebrew-Dienste"
+   }
+  },
+  {
+   "id": "laufzeit",
+   "name": "Laufzeit (Plugin)",
+   "start": [
+    2,
+    -24
+   ],
+   "farbe": "#1a56db",
+   "quelle": {
+    "art": "plugin",
+    "name": "beispiel_laufzeit"
+   },
+   "info": "Beispiel für ein Plugin: plugins/beispiel.py. Fester Körper (farbe), der Kopf zeigt den Status."
+  }
+ ]
+}

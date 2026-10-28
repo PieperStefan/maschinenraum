@@ -1,0 +1,68 @@
+{
+ "id": "arzt",
+ "name": "Arzt",
+ "knopf": false,
+ "beschreibung": "Behandlungsliege: Bots liegen hier, während Claude repariert.",
+ "groesse": [
+  10,
+  12
+ ],
+ "boden": "#d7efe8",
+ "waende": {
+  "rechts": "niedrig",
+  "vorne": "niedrig",
+  "hinten": {
+   "art": "niedrig",
+   "mittig": true,
+   "dicke": 0.2,
+   "luecken": [
+    [
+     -3.7,
+     -1.8
+    ]
+   ]
+  }
+ },
+ "teile": [
+  {
+   "teil": "bodenschild",
+   "x": 0,
+   "z": 4.6,
+   "text": "ARZT · BEHANDLUNG",
+   "farbe": "rgba(15,110,90,.55)"
+  },
+  {
+   "teil": "liege",
+   "x": 0.1,
+   "z": 0.4
+  },
+  {
+   "teil": "ekg",
+   "x": 2,
+   "z": -0.6
+  },
+  {
+   "teil": "medizinschrank",
+   "x": 4.6,
+   "z": -3.8
+  },
+  {
+   "teil": "pflanze",
+   "x": 4,
+   "z": 5.2
+  },
+  {
+   "teil": "pflanze",
+   "x": -4,
+   "z": -4.8
+  },
+  {
+   "teil": "personal",
+   "x": 1.1,
+   "z": 1.6,
+   "drehung": 180,
+   "name": "Ärztin",
+   "farbe": "#f8fafc"
+  }
+ ]
+}

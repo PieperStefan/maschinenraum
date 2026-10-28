@@ -1,0 +1,170 @@
+{
+ "id": "buero",
+ "name": "Büro",
+ "beschreibung": "Fünf Schreibtische (Sitzplätze tisch1–tisch5), Systemanzeige an der Fensterwand, Regal, Besprechungstisch.",
+ "groesse": [
+  20,
+  20
+ ],
+ "boden": "fliesen",
+ "waende": {
+  "links": {
+   "art": "fenster",
+   "pfeiler": true
+  },
+  "rechts": "niedrig"
+ },
+ "kamera": {
+  "ziel": [
+   -2,
+   0,
+   0
+  ],
+  "pos": [
+   10,
+   12.5,
+   11
+  ]
+ },
+ "teile": [
+  {
+   "teil": "schreibtisch",
+   "x": -5,
+   "z": 6,
+   "id": "tisch1",
+   "teppich": "#b94a3a",
+   "bildschirm": "hud0"
+  },
+  {
+   "teil": "schreibtisch",
+   "x": -5,
+   "z": -0.5,
+   "id": "tisch2",
+   "teppich": "#d9a43b",
+   "bildschirm": "code"
+  },
+  {
+   "teil": "schreibtisch",
+   "x": 1,
+   "z": 6,
+   "id": "tisch3",
+   "teppich": "#3b6fb9",
+   "bildschirm": "hud1"
+  },
+  {
+   "teil": "schreibtisch",
+   "x": 1,
+   "z": -0.5,
+   "id": "tisch4",
+   "teppich": "#4f8f5a",
+   "bildschirm": "code"
+  },
+  {
+   "teil": "schreibtisch",
+   "x": -5,
+   "z": -7,
+   "id": "tisch5",
+   "teppich": "#8b5cf6",
+   "bildschirm": "hud2"
+  },
+  {
+   "teil": "anzeige",
+   "x": -9.56,
+   "z": -2.5,
+   "drehung": 90,
+   "inhalt": "system",
+   "breite": 8,
+   "hoehe": 3.7,
+   "y": 2.2
+  },
+  {
+   "teil": "whiteboard",
+   "x": 6.8,
+   "z": 7.4
+  },
+  {
+   "teil": "buecherregal",
+   "x": 8.9,
+   "z": 2
+  },
+  {
+   "teil": "besprechungstisch",
+   "x": 5.2,
+   "z": -4
+  },
+  {
+   "teil": "wasserspender",
+   "x": 8.9,
+   "z": -2
+  },
+  {
+   "teil": "drucker",
+   "x": 8.9,
+   "z": -7.5
+  },
+  {
+   "teil": "pflanze",
+   "x": -9,
+   "z": 9
+  },
+  {
+   "teil": "pflanze",
+   "x": 8.8,
+   "z": 9.1
+  },
+  {
+   "teil": "pflanze",
+   "x": -9,
+   "z": -9.5
+  },
+  {
+   "teil": "pflanze",
+   "x": 8.8,
+   "z": -9.6
+  },
+  {
+   "teil": "pflanze",
+   "x": 2.8,
+   "z": -9.4
+  },
+  {
+   "teil": "punkt",
+   "name": "regal",
+   "x": 7.9,
+   "z": 2,
+   "drehung": 90,
+   "pause": "Sucht im Regal"
+  },
+  {
+   "teil": "punkt",
+   "name": "anzeige",
+   "x": -8.6,
+   "z": -4.5,
+   "drehung": -90
+  },
+  {
+   "teil": "punkt",
+   "name": "wasser",
+   "x": 8.1,
+   "z": -2,
+   "drehung": 90,
+   "pause": "Trinkt Wasser"
+  },
+  {
+   "teil": "punkt",
+   "name": "whiteboard",
+   "x": 6.8,
+   "z": 6.4,
+   "drehung": 180,
+   "pause": "Schreibt ans Whiteboard"
+  },
+  {
+   "teil": "punkt",
+   "name": "fenster1",
+   "x": -8.7,
+   "z": 3.5,
+   "drehung": -90,
+   "pause": "Schaut ins All"
+  }
+ ]
+}

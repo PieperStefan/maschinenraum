@@ -1,0 +1,108 @@
+{
+ "id": "sekretariat",
+ "name": "Sekretariat",
+ "knopf": "Sekretariat & Arzt",
+ "beschreibung": "Rechtsklick auf einen Bot → „Ins Sekretariat“: Claude analysiert, der Bot wartet auf einem Wartestuhl. Fall-Tafel an der Wand.",
+ "groesse": [
+  10,
+  12
+ ],
+ "boden": "#e9dcc8",
+ "waende": {
+  "links": "voll",
+  "vorne": "niedrig",
+  "hinten": {
+   "art": "niedrig",
+   "mittig": true,
+   "dicke": 0.2,
+   "luecken": [
+    [
+     1.8,
+     3.7
+    ]
+   ]
+  },
+  "rechts": {
+   "art": "niedrig",
+   "mittig": true,
+   "dicke": 0.2
+  }
+ },
+ "kamera": {
+  "ziel": [
+   5,
+   0,
+   -0.5
+  ],
+  "pos": [
+   15,
+   13,
+   14
+  ]
+ },
+ "teile": [
+  {
+   "teil": "bodenschild",
+   "x": 0,
+   "z": 4.6,
+   "text": "SEKRETARIAT",
+   "farbe": "rgba(120,70,30,.55)"
+  },
+  {
+   "teil": "tresen",
+   "x": 0,
+   "z": -2.4
+  },
+  {
+   "teil": "wartestuhl",
+   "x": -2.2,
+   "z": 1,
+   "drehung": 180
+  },
+  {
+   "teil": "wartestuhl",
+   "x": 0,
+   "z": 1,
+   "drehung": 180
+  },
+  {
+   "teil": "wartestuhl",
+   "x": 2.2,
+   "z": 1,
+   "drehung": 180
+  },
+  {
+   "teil": "aktenschrank",
+   "x": -4.5,
+   "z": 3.6
+  },
+  {
+   "teil": "pflanze",
+   "x": -4,
+   "z": -4.8
+  },
+  {
+   "teil": "pflanze",
+   "x": 4,
+   "z": 5.2
+  },
+  {
+   "teil": "anzeige",
+   "x": -4.68,
+   "z": 0,
+   "drehung": 90,
+   "inhalt": "faelle",
+   "breite": 5.4,
+   "hoehe": 3.04,
+   "y": 2.25
+  },
+  {
+   "teil": "personal",
+   "x": 0,
+   "z": -3.15,
+   "name": "Sekretariat",
+   "farbe": "#a78bfa",
+   "knopf": "faelle"
+  }
+ ]
+}

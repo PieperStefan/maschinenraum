@@ -1,0 +1,121 @@
+{
+ "id": "lounge",
+ "name": "Lounge",
+ "beschreibung": "Schlafkapsel (platz \"bett\"), Sofa, Kaffeebar, Frühstückstisch mit Portal-Prospekt, Aufgabenanzeige.",
+ "groesse": [
+  20,
+  18
+ ],
+ "boden": "fliesen",
+ "waende": {
+  "links": {
+   "art": "fenster",
+   "pfeiler": true
+  },
+  "rechts": "niedrig"
+ },
+ "kamera": {
+  "ziel": [
+   0,
+   0,
+   1
+  ],
+  "pos": [
+   12,
+   13,
+   12
+  ]
+ },
+ "teile": [
+  {
+   "teil": "schlafkapsel",
+   "x": 6.6,
+   "z": -4.5
+  },
+  {
+   "teil": "sofa",
+   "x": -7.6,
+   "z": -4.5
+  },
+  {
+   "teil": "kaffeebar",
+   "x": 8.8,
+   "z": 5
+  },
+  {
+   "teil": "fruehstueckstisch",
+   "x": 0,
+   "z": 2
+  },
+  {
+   "teil": "prospekt",
+   "x": 0.15,
+   "z": 1.9,
+   "drehung": 20,
+   "y": 0.775
+  },
+  {
+   "teil": "anzeige",
+   "x": -9.56,
+   "z": 1.5,
+   "drehung": 90,
+   "inhalt": "aufgaben",
+   "breite": 8,
+   "hoehe": 3.7,
+   "y": 2.2
+  },
+  {
+   "teil": "schrank",
+   "x": 9.05,
+   "z": -0.5
+  },
+  {
+   "teil": "pflanze",
+   "x": -9,
+   "z": 7,
+   "groesse": 1.2
+  },
+  {
+   "teil": "pflanze",
+   "x": -9,
+   "z": -7.5,
+   "groesse": 1.2
+  },
+  {
+   "teil": "pflanze",
+   "x": 2.5,
+   "z": -7.5,
+   "groesse": 1.2
+  },
+  {
+   "teil": "pflanze",
+   "x": 8.8,
+   "z": -7.5,
+   "groesse": 1.2
+  },
+  {
+   "teil": "punkt",
+   "name": "kaffee",
+   "x": 7.7,
+   "z": 5,
+   "drehung": 90,
+   "pause": "Holt Kaffee"
+  },
+  {
+   "teil": "punkt",
+   "name": "schrank",
+   "x": 8,
+   "z": -0.5,
+   "drehung": 90,
+   "pause": "Öffnet den Schrank"
+  },
+  {
+   "teil": "punkt",
+   "name": "fenster2",
+   "x": -8.7,
+   "z": 5,
+   "drehung": -90,
+   "pause": "Schaut ins All"
+  }
+ ]
+}

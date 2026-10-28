@@ -1,0 +1,158 @@
+{
+ "id": "maschinenraum",
+ "name": "Maschinenraum",
+ "beschreibung": "Sicherungs-Ablauf (Band → Prüfstation → Tresor → Tafel), Bank- und Post-Konsole, Reaktor, Mutter (Gespräch mit Claude).",
+ "groesse": [
+  20,
+  22
+ ],
+ "boden": "gitter",
+ "waende": {
+  "links": {
+   "art": "voll",
+   "paneele": true,
+   "pfeiler": true
+  },
+  "rechts": "niedrig",
+  "hinten": "voll",
+  "vorne": {
+   "art": "tor",
+   "mittig": true
+  }
+ },
+ "kamera": {
+  "ziel": [
+   -4.5,
+   1.6,
+   -4
+  ],
+  "pos": [
+   8.5,
+   7,
+   9.4
+  ]
+ },
+ "teile": [
+  {
+   "teil": "reaktor",
+   "x": 0,
+   "z": -1
+  },
+  {
+   "teil": "sicherungsregal",
+   "x": -9.15,
+   "z": 7,
+   "drehung": 90
+  },
+  {
+   "teil": "konsole",
+   "x": -8.9,
+   "z": 2,
+   "drehung": 90,
+   "bildschirm": "hud2"
+  },
+  {
+   "teil": "lampe",
+   "x": -8.9,
+   "z": 2.4,
+   "art": "pruefen"
+  },
+  {
+   "teil": "konsole",
+   "x": 8.9,
+   "z": -3.5,
+   "drehung": -90,
+   "bildschirm": "hud1"
+  },
+  {
+   "teil": "konsole",
+   "x": 8.9,
+   "z": -8,
+   "drehung": -90,
+   "bildschirm": "hud0"
+  },
+  {
+   "teil": "lampe",
+   "x": 8.9,
+   "z": -7.6,
+   "art": "post"
+  },
+  {
+   "teil": "bandregal",
+   "x": 9.2,
+   "z": 5.9,
+   "drehung": -90,
+   "anzahl": 3
+  },
+  {
+   "teil": "anzeige",
+   "x": -3.5,
+   "z": -10.88,
+   "inhalt": "sicherungen",
+   "breite": 10,
+   "hoehe": 3.9,
+   "y": 2.2
+  },
+  {
+   "teil": "tresor",
+   "x": -9.55,
+   "z": -6,
+   "drehung": 90
+  },
+  {
+   "teil": "mutter",
+   "x": 5.6,
+   "z": -7.6
+  },
+  {
+   "teil": "punkt",
+   "name": "band",
+   "x": -7.9,
+   "z": 7,
+   "drehung": -90
+  },
+  {
+   "teil": "punkt",
+   "name": "pruefstation",
+   "x": -7.7,
+   "z": 2,
+   "drehung": -90
+  },
+  {
+   "teil": "punkt",
+   "name": "tresor",
+   "x": -8,
+   "z": -6,
+   "drehung": -90
+  },
+  {
+   "teil": "punkt",
+   "name": "tafel",
+   "x": -3.5,
+   "z": -9.3,
+   "drehung": 180
+  },
+  {
+   "teil": "punkt",
+   "name": "bank",
+   "x": 7.7,
+   "z": -3.5,
+   "drehung": 90
+  },
+  {
+   "teil": "punkt",
+   "name": "post",
+   "x": 7.7,
+   "z": -8,
+   "drehung": 90
+  },
+  {
+   "teil": "punkt",
+   "name": "kern",
+   "x": 3.4,
+   "z": -1,
+   "drehung": -90,
+   "pause": "Kontrolliert den Kern"
+  }
+ ]
+}

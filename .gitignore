@@ -1,0 +1,18 @@
+# Whitelist: Nur ausdrücklich erlaubte Dateien kommen ins Repository.
+# Alles andere (privat/, daten/, bots/, Sicherungen *.bak*, Logs) bleibt lokal.
+/*
+!/.gitignore
+!/README.md
+!/AGENTS.md
+!/LICENSE
+!/server.py
+!/start.sh
+!/config.example.json
+!/web/
+!/raeume/
+!/plugins/
+!/scripts/
+*.bak*
+*.log
+__pycache__/
+.DS_Store
