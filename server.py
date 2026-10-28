@@ -287,11 +287,12 @@ def sammeln():
 
 
 DEMO = os.environ.get("MR_DEMO") == "1"
+DEMO_START = time.time()
 
 
 def demo_status():
     """Erfundene Beispieldaten (MR_DEMO=1): zum Ausprobieren und für Bildschirmfotos, ohne echte Dienste."""
-    jetzt = time.time()
+    jetzt = DEMO_START  # feste Zeiten, sonst sieht jeder Abruf wie ein neuer Lauf aus
 
     def job(label, gruppe, status, plan, vor_min, in_min=None, code=0, dauer=False):
         return {"label": label, "gruppe": gruppe, "status": status, "code": code, "laeuft": status == "run" or dauer, "geladen": status != "off",
@@ -314,7 +315,7 @@ def demo_status():
         g["fehler"] += j["status"] == "err"
     zeilen = [["CPU-Last", "18 %", "ok"], ["Arbeitsspeicher 64 GB", "52 % belegt", "ok"], ["Systemplatte", "41 % · 1.2 TB frei", "ok"],
               ["Dauerdienste", "2 / 2 laufen", "ok"], ["Aufgaben mit Fehler", "1", "err"], ["Temperatur", "normal", "ok"]]
-    return {"erzeugt": iso(jetzt), "system": {"zeilen": zeilen, "status": "err"}, "sicherungen": sich, "cron": [],
+    return {"erzeugt": iso(time.time()), "system": {"zeilen": zeilen, "status": "err"}, "sicherungen": sich, "cron": [],
             "gruppen": list(gruppen.values()), "jobs": jobs}
 
 

@@ -145,7 +145,7 @@ function update(dt){sim=Date.now();fx.tresorT=Math.max(0,fx.tresorT-dt);
 // ── Posen ──────────────────────────────────────────────────
 function pose(a,t){const b=a.bot,c=a.cur||{},sit=c.type==='act'&&c.pose==='sit',lie=c.type==='act'&&c.pose==='lie';
   const col=COL[a.state];
-  if(a.koerper!=null){b.mat.color.setHex(a.koerper);b.headMat.color.lerp(new THREE.Color(col),.15)}else b.mat.color.lerp(new THREE.Color(col),.15);
+  const fac=window.__foto?1:.15;if(a.koerper!=null){b.mat.color.setHex(a.koerper);b.headMat.color.lerp(new THREE.Color(col),fac)}else b.mat.color.lerp(new THREE.Color(col),fac);
   b.tipMat.emissive.setHex(col);b.tipMat.emissiveIntensity=a.state==='off'?.2:a.state==='err'?2+2*Math.sin(t*10):2.5;
   let px=a.x,py=0,pz=a.z,ry=a.ry,rx=0;
   const [la,ra]=b.arms,[ll,rl]=b.legs;
@@ -371,4 +371,7 @@ renderer.setAnimationLoop(()=>{const dt=Math.min(.05,clock.getDelta()),t=clock.e
   controls.target.y=Math.max(0,Math.min(3,controls.target.y));if(camera.position.y<.4)camera.position.y=.4;controls.update();composer.render();labels.render(scene,camera)});
 renderList();labelsUpdate();
 const _q=new URLSearchParams(location.search);if(_q.has('shot')){intro.classList.add('hide');setView(+_q.get('shot'),true);const ff=+(_q.get('ff')||0);for(let i=0;i<ff*30;i++)update(1/30);for(const a of agents)pose(a,ff);if(_q.get('side')==='0')document.getElementById('side').style.display='none'}
+// Fotomodus: ?ui=0 blendet alle Leisten aus · ?kam=px,py,pz,zx,zy,zz setzt die Kamera (Weltkoordinaten)
+if(_q.get('ui')==='0')window.__foto=true;if(_q.get('ui')==='0')for(const id of['top','views','side'])document.getElementById(id).style.display='none';
+if(_q.has('kam')){const k=_q.get('kam').split(',').map(Number);if(k.length===6){intro.classList.add('hide');goal=null;camera.position.set(k[0],k[1],k[2]);controls.target.set(k[3],k[4],k[5])}}
 window.__mr={agents,W,astar,CFG};
