@@ -23,7 +23,8 @@ Diese Datei beschreibt vollständig, wie der Maschinenraum konfiguriert und erwe
 | `server.py` | Sammelt alle 60 s den Zustand der LaunchAgents in `daten/status.json` und liefert Seite und API aus. Lauscht nur auf `127.0.0.1`. |
 | `web/app.js` | Bots, Live-Status, Bedienfeld, Sekretariat/Arzt, Mutter, Kamera |
 | `web/welt.js` | Baut die Welt aus Räumen und Bibliothek, Wegfindungsraster (A*, 0,5 m) |
-| `web/bibliothek/standard.js` | Aussehen: Materialien, Umgebung, Böden, Wände, Figur, alle Teile |
+| `web/bibliothek/neon.js` | Aussehen des Leitstands (Voreinstellung): Materialien, Umgebung, Böden, Wände, Figur, Teile |
+| `web/bibliothek/standard.js` | bisheriges Raumschiff-Büro, ladbar mit `"bibliothek": "standard"` |
 | `raeume/*.json` | Raum-Vorlagen. Gleichnamige Dateien in `privat/raeume/` haben Vorrang. |
 | `plugins/*.py`, `privat/plugins/*.py` | Zusätzliche Datenquellen für Bots |
 | `daten/` | `status.json`, `faelle.json`, `auftraege.json`, `behandlungen.log` (Laufzeit) |
@@ -72,7 +73,7 @@ Ein **Job** in `status.json` sieht so aus: `{label, gruppe, status: ok|run|err|o
   "mutter_prompt": "…",                   // optional: Systemprompt der Mutter
   "portal": {"name": "Mein Portal", "untertitel": "Alle Dienste", "url": "http://{host}:8080/",
              "urls": [{"wenn_host_endet": ".example.net", "url": "https://portal.example.net/"}]}, // Prospekt auf dem Frühstückstisch; {host} = aktueller Hostname
-  "welt": { "bibliothek": "standard", "raeume": [ … ] },               // siehe „Räume“
+  "welt": { "bibliothek": "neon", "raeume": [ … ] },                   // siehe „Räume“; "standard" = Raumschiff-Büro
   "agenten": [ … ]                                                      // siehe „Bots“
 }
 ```
@@ -108,7 +109,7 @@ Ein **Job** in `status.json` sieht so aus: `{label, gruppe, status: ok|run|err|o
 | `plugin` | `name: "<quelle>"` | aus dem Plugin | aus dem Plugin |
 | `fest` | `status`, `text` | fest | fest (für pausierte oder externe Dienste) |
 
-Farben: `ok` grün, `run` gelb, `err` rot (blinkt), `off` grau. Rangfolge beim Zusammenfassen: err > run > ok > off.
+Farben: `ok` grün, `run` gelb, `err` rot (blinkt), `off` grau. Rangfolge beim Zusammenfassen: err > run > ok > off. In `neon` tragen Brustlicht und Antenne diese Farbe (der Körper bleibt weiß, bzw. `farbe`). Ohne `statusMat` färbt der Zustand den ganzen Körper.
 
 **Animationen (`arbeit`)** brauchen benannte Punkte (`teil: "punkt"`) in den Räumen. Fehlt ein Punkt, wird der Schritt übersprungen.
 
@@ -192,9 +193,11 @@ export function materialien(k) { return {M, T, bild} }  // M: Materialien, T: Te
 export function umgebung(k, b) {}                        // Himmel, Licht, Schatten; b = {x0,x1,zv,zh,w,d,cx,cz}
 export function boden(k, raum) {}                        // raum = {cx,cz,w,d,x0,x1,zv,zh,boden,…}
 export function wand(k, g, w) {}                         // g: Gruppe, lokal x entlang der Wand, +z zeigt in den Raum; w = {art, laenge, luecken:[[a,b]] (0…laenge), …}
-export function figur(k, farbe) { return {root, body, head, headBall, arms:[l,r], legs:[l,r], mat, tipMat, carry, items:{band, ordner, tasse}} }
+export function figur(k, farbe) { return {root, body, head, headBall, arms:[l,r], legs:[l,r], mat, tipMat, statusMat, carry, items:{band, ordner, tasse}} }
 export const teile = { schreibtisch(k, o) { … return {sitz} } }
 ```
+
+`statusMat` ist optional. Ist es gesetzt, färbt die App den Körper nicht um, sondern Brustlicht und Antennenspitze.
 
 **Werkzeugkasten `k`:**
 - `THREE`, `scene`, `CSS2DObject`, `WH` (Wandhöhe), `rnd()` (fester Zufall)

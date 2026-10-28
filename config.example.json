@@ -39,7 +39,7 @@
   "url": "http://{host}:8080/"
  },
  "welt": {
-  "bibliothek": "standard",
+  "bibliothek": "neon",
   "raeume": [
    {
     "vorlage": "buero",
