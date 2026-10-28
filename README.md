@@ -8,6 +8,8 @@
 
 ![Gesamtansicht: Büro, Lounge, Maschinenraum, Sekretariat und Arzt](docs/gesamt.jpg)
 
+**▶ Live-Demo im Browser (Beispieldaten, nichts wird ausgeführt): https://maschinenraum.pages.dev**
+
 ## Was es kann
 
 - **Live-Zustand** aller eigenen LaunchAgents: Status, Exit-Code, Zeitplan, letzter und nächster Lauf. Aktualisiert jede Minute.

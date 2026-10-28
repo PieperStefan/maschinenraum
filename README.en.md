@@ -10,6 +10,8 @@
 
 > The user interface and the configuration field names are in **German**. This page and [AGENTS.en.md](AGENTS.en.md) explain everything in English.
 
+**▶ Live demo in your browser (sample data, nothing is executed): https://maschinenraum.pages.dev**
+
 ## Features
 
 - **Live state** of your own LaunchAgents: status, exit code, schedule, last and next run. Refreshed every minute.
