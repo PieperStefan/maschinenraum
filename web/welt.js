@@ -8,7 +8,8 @@ export const WH=4.2;   // Wandhöhe
 const CS=.5;           // Rastergröße der Wegfindung
 
 export async function baueWelt(scene,cfg,aktion,portalUrl){
-  const name=(cfg.welt&&cfg.welt.bibliothek)||'neon';
+  const roh=(cfg.welt&&cfg.welt.bibliothek)||'neon';
+  const name=/^[a-z0-9_-]+$/i.test(roh)?roh:'neon';
   const std_=await import('./bibliothek/standard.js');
   let lib=std_;
   if(name!=='standard'){try{lib=await import(`./bibliothek/${name}.js`)}catch(e){console.warn('Bibliothek nicht geladen, nutze standard:',name,e)}}

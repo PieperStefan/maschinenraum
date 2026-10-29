@@ -754,6 +754,21 @@ TYPEN = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=u
          ".css": "text/css; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml"}
 
 
+def bibliotheken_liste():
+    """Dateinamen aus web/bibliothek und privat/bibliothek, ohne Pfade. Die Seite schaltet damit das Aussehen um."""
+    namen, gesehen = [], set()
+    for ordner in (os.path.join(WEB, "bibliothek"), os.path.join(PRIVAT, "bibliothek")):
+        if not os.path.isdir(ordner):
+            continue
+        for f in sorted(os.listdir(ordner), key=str.lower):
+            stamm, ext = os.path.splitext(f)
+            if ext != ".js" or not re.fullmatch(r"[A-Za-z0-9_-]+", stamm) or stamm in gesehen:
+                continue
+            gesehen.add(stamm)
+            namen.append(stamm)
+    return namen
+
+
 def statische_datei(p):
     """Nur Dateien aus web/ – eigene Bibliotheken dürfen auch in privat/bibliothek/ liegen. Nichts anderes aus dem Ordner."""
     rel = STATISCH.get(p, p.lstrip("/"))
@@ -827,6 +842,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         p, q = u.path, parse_qs(u.query)
         if p == "/api/config":
             return self.antwort(seiten_config())
+        if p == "/api/bibliotheken":
+            return self.antwort({"bibliotheken": bibliotheken_liste()})
         if p == "/api/status":
             return self.antwort(demo_status() if DEMO else json_datei(os.path.join(DATEN, "status.json"), {}))
         if p == "/api/plugin":

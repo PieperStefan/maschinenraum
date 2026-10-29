@@ -15,7 +15,7 @@
 - **Live-Zustand** aller eigenen LaunchAgents: Status, Exit-Code, Zeitplan, letzter und nächster Lauf. Aktualisiert jede Minute.
 - **Bots** frei konfigurierbar: welche Aufgaben ein Bot beobachtet, wo er sitzt, was er tut, welche Farbe er hat.
 - **Räume als Bausteine** (`raeume/*.json`): Büro, Lounge, Maschinenraum, Sekretariat und Arzt. Räume lassen sich anlegen, verschieben, austauschen und weglassen.
-- **Austauschbares Aussehen** (`web/bibliothek/*.js`): Möbel, Wände, Böden und Figuren kommen aus einer Bibliothek. Voreinstellung ist `neon` (dunkler Leitstand). `standard` ist das bisherige Raumschiff-Büro.
+- **Austauschbares Aussehen** (`web/bibliothek/*.js`): Möbel, Wände, Böden und Figuren kommen aus einer Bibliothek. Voreinstellung ist `neon` (dunkler Leitstand). `standard` ist das bisherige Raumschiff-Büro. Der Schalter „Aussehen“ schaltet sofort um; eine neue Datei `web/bibliothek/<name>.js` erscheint dort von selbst.
 - **Bedienfeld** pro Bot oder Aufgabe mit Klartext-Diagnose (z. B. „Dem Programm fehlt der Festplattenvollzugriff“) und dem Knopf „Freigabe geben“.
 - **Wandtafeln** mit System-Check, allen Aufgaben, den Sicherungen und den Fällen.
 - **Plugins** (`plugins/*.py`): eigene Datenquellen für Bots, z. B. eine Datenbank oder eine Web-API.

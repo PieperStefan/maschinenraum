@@ -17,7 +17,7 @@
 - **Live state** of your own LaunchAgents: status, exit code, schedule, last and next run. Refreshed every minute.
 - **Robots** are fully configurable: which jobs a robot watches, where it sits, what it does, which color it has.
 - **Rooms as building blocks** (`raeume/*.json`): office, lounge, engine room, secretariat and doctor's room. Rooms can be added, moved, swapped or left out.
-- **Swappable look** (`web/bibliothek/*.js`): furniture, walls, floors and robots come from a library. The default is `neon` (dark control room). `standard` is the previous spaceship office.
+- **Swappable look** (`web/bibliothek/*.js`): furniture, walls, floors and robots come from a library. The default is `neon` (dark control room). `standard` is the previous spaceship office. The “Aussehen” switch changes it at once; a new file `web/bibliothek/<name>.js` shows up there by itself.
 - **Control panel** per robot or job, with a plain-language diagnosis (e.g. “the program lacks Full Disk Access”) and a button that opens the right privacy settings.
 - **Wall boards** with system check, all jobs, backups and open cases.
 - **Plugins** (`plugins/*.py`): your own data sources for robots, e.g. a database or a web API.

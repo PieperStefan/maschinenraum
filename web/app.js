@@ -14,6 +14,23 @@ const CFG=await (await fetch('api/config',{cache:'no-store'})).json();
 document.title=CFG.titel;document.getElementById('titel').textContent=CFG.titel;
 const BENUTZER=CFG.benutzer||'Du';
 
+// Aussehen: Voreinstellung bleibt welt.bibliothek in der Konfiguration. Die Wahl im Schalter liegt nur im Browser.
+const BIB_KEY='mr-bibliothek',bibOk=n=>typeof n==='string'&&/^[a-z0-9_-]+$/i.test(n);
+let bibliotheken=[];
+try{const r=await fetch('api/bibliotheken',{cache:'no-store'});if(r.ok){const d=await r.json();bibliotheken=(d.bibliotheken||[]).filter(bibOk)}}catch(e){}
+if(!bibliotheken.length)bibliotheken=['neon','standard'];
+const vorlage=(CFG.welt&&CFG.welt.bibliothek)||'neon';
+const gespeichert=localStorage.getItem(BIB_KEY);
+const gewaehlt=bibliotheken.includes(gespeichert)?gespeichert:(bibliotheken.includes(vorlage)?vorlage:bibliotheken[0]);
+CFG.welt=CFG.welt||{};CFG.welt.bibliothek=gewaehlt;
+const bibLabel=id=>({neon:'Neon',standard:'Standard'}[id]||id.charAt(0).toUpperCase()+id.slice(1));
+function mountLook(host){if(!host)return;host.replaceChildren();const lab=document.createElement('label');lab.append('Aussehen');
+  const sel=document.createElement('select');sel.setAttribute('aria-label','Aussehen');sel.title='Weitere Gestaltung: Datei web/bibliothek/name.js ablegen, dann neu laden.';
+  for(const n of bibliotheken){const o=document.createElement('option');o.value=n;o.textContent=bibLabel(n);if(n===gewaehlt)o.selected=true;sel.appendChild(o)}
+  sel.onchange=()=>{const n=sel.value;if(!bibliotheken.includes(n)||n===gewaehlt)return;localStorage.setItem(BIB_KEY,n);sessionStorage.setItem('mr-enter','1');location.reload()};
+  lab.appendChild(sel);host.appendChild(lab)}
+mountLook(document.getElementById('look-top'));mountLook(document.getElementById('look-intro'));
+
 // ── Renderer, Szene, Kamera ────────────────────────────────
 const renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
@@ -363,7 +380,7 @@ setView(0,true);
 
 // ── Zahnrad ────────────────────────────────────────────────
 const intro=document.getElementById('intro');
-const enterHQ=()=>{intro.classList.add('hide');const g=W.ansichten.find(v=>v.gesamt);if(g)camera.position.set(...g.p);setView(0)};document.getElementById('enter').addEventListener('click',enterHQ);if(window.__enterAsked)enterHQ();
+const enterHQ=()=>{intro.classList.add('hide');const g=W.ansichten.find(v=>v.gesamt);if(g)camera.position.set(...g.p);setView(0)};document.getElementById('enter').addEventListener('click',enterHQ);if(window.__enterAsked||sessionStorage.getItem('mr-enter')==='1'){sessionStorage.removeItem('mr-enter');enterHQ()}
 document.getElementById('gear').onclick=()=>intro.classList.remove('hide');
 
 // ── Nachbearbeitung + Schleife ─────────────────────────────

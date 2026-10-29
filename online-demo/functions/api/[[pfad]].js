@@ -46,6 +46,7 @@ export async function onRequest({request}) {
     return json({ok: false, meldung: 'Live-Demo: hier wird nichts ausgeführt. In einer eigenen Installation steuert dieser Knopf den Dienst wirklich.'});
   }
   if (p === '/api/config') return json(CONFIG);
+  if (p === '/api/bibliotheken') return json({bibliotheken: ['neon', 'standard']}); // = Dateien in web/bibliothek/*.js
   if (p === '/api/status') return json(status(jetzt));
   if (p === '/api/faelle') return json({faelle: faelle(jetzt)});
   if (p === '/api/auftraege') return json({auftraege: []});

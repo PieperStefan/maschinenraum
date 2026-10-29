@@ -188,7 +188,7 @@ Points needed for all animations: `band`, `pruefstation`, `tresor`, `tafel`, `ba
 
 ## Libraries (swapping the look)
 
-`"welt": {"bibliothek": "mine"}` loads `web/bibliothek/mine.js` (or `privat/bibliothek/mine.js`). A library is an ES module and may provide any of these exports. **Anything missing is taken from `standard` automatically.** A new library can therefore start with just one different desk.
+`"welt": {"bibliothek": "mine"}` loads `web/bibliothek/mine.js` (or `privat/bibliothek/mine.js`). A library is an ES module and may provide any of these exports. **Anything missing is taken from `standard` automatically.** A new library can therefore start with just one different desk. A file `web/bibliothek/<name>.js` shows up in the “Aussehen” switch; the configuration stays the default and the browser remembers the choice.
 
 ```js
 export function materialien(k) { return {M, T, bild} }  // M: materials, T: textures (T.hud[0..2], T.code, …), bild(name) → texture

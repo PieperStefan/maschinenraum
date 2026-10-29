@@ -186,7 +186,7 @@ Benötigte Punkte für alle Animationen: `band`, `pruefstation`, `tresor`, `tafe
 
 ## Bibliotheken (Aussehen austauschen)
 
-`"welt": {"bibliothek": "meine"}` lädt `web/bibliothek/meine.js` (oder `privat/bibliothek/meine.js`). Eine Bibliothek ist ein ES-Modul und darf jede dieser Exporte liefern. **Fehlendes kommt automatisch aus `standard`.** Eine neue Bibliothek kann also mit einem einzigen anderen Schreibtisch anfangen.
+`"welt": {"bibliothek": "meine"}` lädt `web/bibliothek/meine.js` (oder `privat/bibliothek/meine.js`). Eine Bibliothek ist ein ES-Modul und darf jede dieser Exporte liefern. **Fehlendes kommt automatisch aus `standard`.** Eine neue Bibliothek kann also mit einem einzigen anderen Schreibtisch anfangen. Eine Datei `web/bibliothek/<name>.js` erscheint im Schalter „Aussehen“; die Konfiguration bleibt die Voreinstellung, die Wahl speichert der Browser.
 
 ```js
 export function materialien(k) { return {M, T, bild} }  // M: Materialien, T: Texturen (T.hud[0..2], T.code, …), bild(name) → Textur

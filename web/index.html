@@ -23,6 +23,9 @@ h1{font-size:13px;margin:0;letter-spacing:.14em;text-transform:uppercase}
 button{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:6px 11px;border-radius:9px;cursor:pointer;font:inherit;backdrop-filter:blur(8px)}
 button.on,button:hover{border-color:var(--cyan);color:#bae6fd}
 #clock{font-variant-numeric:tabular-nums;color:var(--muted)}
+.look label{display:flex;gap:8px;align-items:center}
+.look select{background:#0c141c;color:var(--text);border:1px solid var(--cyan);border-radius:7px;padding:3px 8px;font:inherit;font-weight:600;min-width:7.2em;cursor:pointer}
+.look select:hover,.look select:focus{color:#bae6fd}
 #side{position:fixed;right:12px;top:58px;width:290px;max-height:calc(100% - 80px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px;backdrop-filter:blur(8px)}
 #side h2{font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:6px 8px}
 .ag{display:flex;gap:10px;padding:7px 8px;border-radius:8px;cursor:pointer}
@@ -69,11 +72,12 @@ details summary{cursor:pointer;padding:6px 8px;display:flex;gap:8px;align-items:
 </script>
 </head>
 <body>
-<div id="intro"><button id="enter" aria-label="Maschinenraum betreten"><svg viewBox="-60 -60 120 120"><g fill="currentColor" id="teeth"></g><circle r="38" fill="currentColor"/><circle r="16" fill="#05080f"/></svg></button><p>Einstellungen · Maschinenraum betreten</p></div>
+<div id="intro"><button id="enter" aria-label="Maschinenraum betreten"><svg viewBox="-60 -60 120 120"><g fill="currentColor" id="teeth"></g><circle r="38" fill="currentColor"/><circle r="16" fill="#05080f"/></svg></button><p>Einstellungen · Maschinenraum betreten</p><div class="pill look" id="look-intro"></div></div>
 <div id="c"></div><div id="labels"></div>
 <div id="top">
   <div class="pill"><h1><span id="titel">Maschinenraum</span><span class="badge" style="color:#4ade80">live</span></h1></div>
   <div class="pill" id="clock"></div>
+  <div class="pill look" id="look-top"></div>
   <button id="gear" title="Zurück zum Zahnrad">⚙︎</button>
 </div>
 <div id="ctx" hidden></div><div id="panel" hidden><div class="ph"><span class="dot" id="pd"></span><b id="pt"></b><button id="px">✕</button></div><div id="pb"></div></div>
