@@ -25,7 +25,8 @@ This file fully describes how to configure and extend the Maschinenraum (“engi
 | `server.py` | Collects the state of all LaunchAgents every 60 s into `daten/status.json`, serves the page and the API. Listens on `127.0.0.1` only. |
 | `web/app.js` | Robots, live status, control panel, secretariat/doctor, Mutter, camera |
 | `web/welt.js` | Builds the world from rooms and library, path-finding grid (A*, 0.5 m) |
-| `web/bibliothek/standard.js` | The look: materials, environment, floors, walls, robot figure, all parts |
+| `web/bibliothek/neon.js` | Default look (control room): materials, environment, floors, walls, robot figure, parts |
+| `web/bibliothek/standard.js` | Previous spaceship office, load with `"bibliothek": "standard"` |
 | `raeume/*.json` | Room templates. Files with the same name in `privat/raeume/` take precedence. |
 | `plugins/*.py`, `privat/plugins/*.py` | Additional data sources for robots |
 | `daten/` | `status.json`, `faelle.json`, `auftraege.json`, `behandlungen.log` (runtime) |
@@ -74,7 +75,7 @@ A **job** in `status.json` looks like this: `{label, gruppe, status: ok|run|err|
   "mutter_prompt": "…",                   // optional: system prompt of Mutter
   "portal": {"name": "My Portal", "untertitel": "All services", "url": "http://{host}:8080/",
              "urls": [{"wenn_host_endet": ".example.net", "url": "https://portal.example.net/"}]}, // brochure on the breakfast table; {host} = current hostname; wenn_host_endet = “if host ends with”
-  "welt": { "bibliothek": "standard", "raeume": [ … ] },               // world: library + rooms, see “Rooms”
+  "welt": { "bibliothek": "neon", "raeume": [ … ] },                   // world: library + rooms, see “Rooms”; "standard" = spaceship office
   "agenten": [ … ]                                                      // robots, see “Robots”
 }
 ```
@@ -110,7 +111,7 @@ A **job** in `status.json` looks like this: `{label, gruppe, status: ok|run|err|
 | `plugin` | `name: "<source>"` | from the plugin | from the plugin |
 | `fest` (fixed) | `status`, `text` | fixed | fixed (for paused or external services) |
 
-Colors: `ok` green, `run` yellow, `err` red (blinking), `off` grey. Precedence when combining: err > run > ok > off.
+Colors: `ok` green, `run` yellow, `err` red (blinking), `off` grey. Precedence when combining: err > run > ok > off. In `neon`, the chest lamp and antenna carry that color (the body stays white, or `farbe`). Without `statusMat`, the whole body takes the state color.
 
 **Animations (`arbeit`)** need named points (`teil: "punkt"`) in the rooms. If a point is missing, that step is skipped.
 
@@ -187,14 +188,14 @@ Points needed for all animations: `band`, `pruefstation`, `tresor`, `tafel`, `ba
 
 ## Libraries (swapping the look)
 
-`"welt": {"bibliothek": "mine"}` loads `web/bibliothek/mine.js` (or `privat/bibliothek/mine.js`). A library is an ES module and may provide any of these exports. **Anything missing is taken from `standard` automatically.** A new library can therefore start with just one different desk.
+`"welt": {"bibliothek": "mine"}` loads `web/bibliothek/mine.js` (or `privat/bibliothek/mine.js`). A library is an ES module and may provide any of these exports. **Anything missing is taken from `standard` automatically.** A new library can therefore start with just one different desk. A file `web/bibliothek/<name>.js` shows up in the “Aussehen” switch; the configuration stays the default and the browser remembers the choice.
 
 ```js
 export function materialien(k) { return {M, T, bild} }  // M: materials, T: textures (T.hud[0..2], T.code, …), bild(name) → texture
 export function umgebung(k, b) {}                        // sky, light, shadows; b = {x0,x1,zv,zh,w,d,cx,cz}
 export function boden(k, raum) {}                        // floor; raum = {cx,cz,w,d,x0,x1,zv,zh,boden,…}
 export function wand(k, g, w) {}                         // wall; g: group, local x along the wall, +z points into the room; w = {art, laenge, luecken:[[a,b]] (0…laenge), …}
-export function figur(k, farbe) { return {root, body, head, headBall, arms:[l,r], legs:[l,r], mat, tipMat, carry, items:{band, ordner, tasse}} }  // robot figure
+export function figur(k, farbe) { return {root, body, head, headBall, arms:[l,r], legs:[l,r], mat, tipMat, statusMat, carry, items:{band, ordner, tasse}} }  // robot; statusMat is optional
 export const teile = { schreibtisch(k, o) { … return {sitz} } }  // parts
 ```
 

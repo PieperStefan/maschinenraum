@@ -14,6 +14,23 @@ const CFG=await (await fetch('api/config',{cache:'no-store'})).json();
 document.title=CFG.titel;document.getElementById('titel').textContent=CFG.titel;
 const BENUTZER=CFG.benutzer||'Du';
 
+// Aussehen: Voreinstellung bleibt welt.bibliothek in der Konfiguration. Die Wahl im Schalter liegt nur im Browser.
+const BIB_KEY='mr-bibliothek',bibOk=n=>typeof n==='string'&&/^[a-z0-9_-]+$/i.test(n);
+let bibliotheken=[];
+try{const r=await fetch('api/bibliotheken',{cache:'no-store'});if(r.ok){const d=await r.json();bibliotheken=(d.bibliotheken||[]).filter(bibOk)}}catch(e){}
+if(!bibliotheken.length)bibliotheken=['neon','standard'];
+const vorlage=(CFG.welt&&CFG.welt.bibliothek)||'neon';
+const gespeichert=localStorage.getItem(BIB_KEY);
+const gewaehlt=bibliotheken.includes(gespeichert)?gespeichert:(bibliotheken.includes(vorlage)?vorlage:bibliotheken[0]);
+CFG.welt=CFG.welt||{};CFG.welt.bibliothek=gewaehlt;
+const bibLabel=id=>({neon:'Neon',standard:'Standard'}[id]||id.charAt(0).toUpperCase()+id.slice(1));
+function mountLook(host){if(!host)return;host.replaceChildren();const lab=document.createElement('label');lab.append('Aussehen');
+  const sel=document.createElement('select');sel.setAttribute('aria-label','Aussehen');sel.title='Weitere Gestaltung: Datei web/bibliothek/name.js ablegen, dann neu laden.';
+  for(const n of bibliotheken){const o=document.createElement('option');o.value=n;o.textContent=bibLabel(n);if(n===gewaehlt)o.selected=true;sel.appendChild(o)}
+  sel.onchange=()=>{const n=sel.value;if(!bibliotheken.includes(n)||n===gewaehlt)return;localStorage.setItem(BIB_KEY,n);sessionStorage.setItem('mr-enter','1');location.reload()};
+  lab.appendChild(sel);host.appendChild(lab)}
+mountLook(document.getElementById('look-top'));mountLook(document.getElementById('look-intro'));
+
 // ── Renderer, Szene, Kamera ────────────────────────────────
 const renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
@@ -99,7 +116,7 @@ const agents=(CFG.agenten||[]).map(d=>{
   const idle=seat?idleDesk:bett?idleBed:idleWander;
   const p=seat||(bett?W.bett.ap:(d.start?{x:d.start[0],z:d.start[1]}:freierPunkt()));
   const koerper=d.farbe?new THREE.Color(d.farbe).getHex():null;
-  const bot=W.figur(koerper??COL.ok);
+  const bot=W.figur(koerper!=null?koerper:null);
   const tag=document.createElement('div');tag.className='tag';const tagO=new CSS2DObject(tag);tagO.position.set(0,1.85,0);bot.root.add(tagO);
   const bub=document.createElement('div');bub.className='bubble';const bubO=new CSS2DObject(bub);bubO.position.set(0,2.3,0);bubO.visible=false;bot.root.add(bubO);
   bub.onclick=()=>{const x=ag(d.id);if(x&&x.fall)openFall(d.id)};
@@ -145,8 +162,12 @@ function update(dt){sim=Date.now();fx.tresorT=Math.max(0,fx.tresorT-dt);
 // ── Posen ──────────────────────────────────────────────────
 function pose(a,t){const b=a.bot,c=a.cur||{},sit=c.type==='act'&&c.pose==='sit',lie=c.type==='act'&&c.pose==='lie';
   const col=COL[a.state];
-  const fac=window.__foto?1:.15;if(a.koerper!=null){b.mat.color.setHex(a.koerper);b.headMat.color.lerp(new THREE.Color(col),fac)}else b.mat.color.lerp(new THREE.Color(col),fac);
-  b.tipMat.emissive.setHex(col);b.tipMat.emissiveIntensity=a.state==='off'?.2:a.state==='err'?2+2*Math.sin(t*10):2.5;
+  const fac=window.__foto?1:.15;
+  // Bibliotheken mit statusMat (neon) lassen den Körper weiß bzw. in farbe und zeigen den Zustand an Brust und Antenne.
+  if(a.koerper!=null){b.mat.color.setHex(a.koerper);if(b.headMat)b.headMat.color.lerp(new THREE.Color(col),fac)}
+  else if(!b.statusMat)b.mat.color.lerp(new THREE.Color(col),fac);
+  if(b.statusMat){b.statusMat.color.setHex(col);b.statusMat.emissive.setHex(col);b.statusMat.emissiveIntensity=a.state==='off'?.2:a.state==='err'?1.15+1.15*Math.sin(t*10):1.65}
+  b.tipMat.emissive.setHex(col);b.tipMat.emissiveIntensity=a.state==='off'?.2:a.state==='err'?1.4+1.3*Math.sin(t*10):1.85;
   let px=a.x,py=0,pz=a.z,ry=a.ry,rx=0;
   const [la,ra]=b.arms,[ll,rl]=b.legs;
   la.rotation.set(0,0,0);ra.rotation.set(0,0,0);ll.rotation.set(0,0,0);rl.rotation.set(0,0,0);b.head.rotation.set(0,0,0);b.body.position.set(0,0,0);
@@ -266,8 +287,10 @@ pb.addEventListener('click',async e=>{const b=e.target.closest('button[data-a]')
   try{let r;if(was==='log'){r=await (await fetch('api/log?label='+encodeURIComponent(label))).json()}
     else{r=await mPost('api/aktion',{label,aktion:was});
       if(was==='starten'){const a=agents.find(x=>x.job&&jobsVon(x).some(j=>j.label===label));if(a){if((a.quelle||{}).art==='sicherungen'){const bk=LIVE.sicherungen.find(s=>s.label===label);backupQueue.push(bk?bk.name:'Sicherung')}a.pending=true}}
-      setTimeout(poll,1500)}
+      //setTimeout(poll,1500);
+      }
     zeigeErgebnis(out,r)}catch(err){out.innerHTML=`<div class="diag err">Keine Verbindung zum Maschinenraum: ${esc(err.message)}</div>`}
+    console.log("API Response:", r);
   box.querySelectorAll('button').forEach(x=>x.disabled=false)});
 document.getElementById('jobs').addEventListener('click',e=>{const j=e.target.closest('.job');if(j&&j.dataset.l)openPanel(null,[j.dataset.l])});
 
@@ -357,7 +380,7 @@ setView(0,true);
 
 // ── Zahnrad ────────────────────────────────────────────────
 const intro=document.getElementById('intro');
-const enterHQ=()=>{intro.classList.add('hide');const g=W.ansichten.find(v=>v.gesamt);if(g)camera.position.set(...g.p);setView(0)};document.getElementById('enter').addEventListener('click',enterHQ);if(window.__enterAsked)enterHQ();
+const enterHQ=()=>{intro.classList.add('hide');const g=W.ansichten.find(v=>v.gesamt);if(g)camera.position.set(...g.p);setView(0)};document.getElementById('enter').addEventListener('click',enterHQ);if(window.__enterAsked||sessionStorage.getItem('mr-enter')==='1'){sessionStorage.removeItem('mr-enter');enterHQ()}
 document.getElementById('gear').onclick=()=>intro.classList.remove('hide');
 
 // ── Nachbearbeitung + Schleife ─────────────────────────────

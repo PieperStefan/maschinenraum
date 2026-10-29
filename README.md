@@ -4,7 +4,7 @@
 
 # Maschinenraum
 
-**Ein 3D-Leitstand für die Hintergrund-Dienste eines Macs.** Jeder Dienst (launchd-LaunchAgent) wird zu einer kleinen Figur in einem begehbaren Raumschiff-Büro. Die Körperfarbe zeigt den Zustand: grün = ok, gelb = läuft, rot = Fehler, grau = aus. Ein Klick auf eine Figur öffnet das Bedienfeld zum Starten, Stoppen, Pausieren, Deaktivieren und Protokoll-Lesen.
+**Ein 3D-Leitstand für die Hintergrund-Dienste eines Macs.** Jeder Dienst (launchd-LaunchAgent) wird zu einem kleinen Roboter in einem dunklen Leitstand: anthrazitfarbene Räume, cyanfarbene Kanten, weiße Köpfe mit blauen Augen. Die Leuchte an Brust und Antenne zeigt den Zustand: grün = ok, gelb = läuft, rot = Fehler, grau = aus. Ein Klick auf eine Figur öffnet das Bedienfeld zum Starten, Stoppen, Pausieren, Deaktivieren und Protokoll-Lesen. Das bisherige Raumschiff-Büro bleibt als Bibliothek `standard` erhalten (`"bibliothek": "standard"`).
 
 ![Gesamtansicht: Büro, Lounge, Maschinenraum, Sekretariat und Arzt](docs/gesamt.jpg)
 
@@ -15,7 +15,7 @@
 - **Live-Zustand** aller eigenen LaunchAgents: Status, Exit-Code, Zeitplan, letzter und nächster Lauf. Aktualisiert jede Minute.
 - **Bots** frei konfigurierbar: welche Aufgaben ein Bot beobachtet, wo er sitzt, was er tut, welche Farbe er hat.
 - **Räume als Bausteine** (`raeume/*.json`): Büro, Lounge, Maschinenraum, Sekretariat und Arzt. Räume lassen sich anlegen, verschieben, austauschen und weglassen.
-- **Austauschbares Aussehen** (`web/bibliothek/*.js`): Möbel, Wände, Böden und Figuren kommen aus einer Bibliothek. Eine andere Bibliothek gibt dem Ganzen ein anderes Aussehen.
+- **Austauschbares Aussehen** (`web/bibliothek/*.js`): Möbel, Wände, Böden und Figuren kommen aus einer Bibliothek. Voreinstellung ist `neon` (dunkler Leitstand). `standard` ist das bisherige Raumschiff-Büro. Der Schalter „Aussehen“ schaltet sofort um; eine neue Datei `web/bibliothek/<name>.js` erscheint dort von selbst.
 - **Bedienfeld** pro Bot oder Aufgabe mit Klartext-Diagnose (z. B. „Dem Programm fehlt der Festplattenvollzugriff“) und dem Knopf „Freigabe geben“.
 - **Wandtafeln** mit System-Check, allen Aufgaben, den Sicherungen und den Fällen.
 - **Plugins** (`plugins/*.py`): eigene Datenquellen für Bots, z. B. eine Datenbank oder eine Web-API.
@@ -88,7 +88,7 @@ config.example.json    Beispiel-Konfiguration
 web/index.html         Seite
 web/app.js             Bots, Live-Status, Bedienfeld, Sekretariat/Arzt, Mutter
 web/welt.js            baut die Welt aus Räumen + Bibliothek, Wegfindung
-web/bibliothek/        Aussehen (standard.js = Raumschiff-Büro)
+web/bibliothek/        Aussehen (neon.js = Leitstand, standard.js = Raumschiff-Büro)
 raeume/                Raum-Vorlagen (JSON)
 plugins/               Beispiel-Plugin
 scripts/               Einrichtung als LaunchAgent

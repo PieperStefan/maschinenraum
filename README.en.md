@@ -4,7 +4,7 @@
 
 # Maschinenraum (“engine room”)
 
-**A 3D control room for the background services of a Mac.** Every service (launchd LaunchAgent) becomes a small robot in a walkable spaceship office. Its body color shows the state: green = ok, yellow = running, red = error, grey = off. Click a robot to open its control panel: start, stop, pause, disable, read logs.
+**A 3D control room for the background services of a Mac.** Every service (launchd LaunchAgent) becomes a small robot in a dark control room: charcoal rooms, cyan edge lights, white heads with blue eyes. The lamp on the chest and antenna shows the state: green = ok, yellow = running, red = error, grey = off. Click a robot to open its control panel: start, stop, pause, disable, read logs. The previous spaceship office remains available as the `standard` library (`"bibliothek": "standard"`).
 
 ![Overview: office, lounge, engine room, secretariat and doctor's room](docs/gesamt.jpg)
 
@@ -17,7 +17,7 @@
 - **Live state** of your own LaunchAgents: status, exit code, schedule, last and next run. Refreshed every minute.
 - **Robots** are fully configurable: which jobs a robot watches, where it sits, what it does, which color it has.
 - **Rooms as building blocks** (`raeume/*.json`): office, lounge, engine room, secretariat and doctor's room. Rooms can be added, moved, swapped or left out.
-- **Swappable look** (`web/bibliothek/*.js`): furniture, walls, floors and robots come from a library. Load another library and the whole place looks different.
+- **Swappable look** (`web/bibliothek/*.js`): furniture, walls, floors and robots come from a library. The default is `neon` (dark control room). `standard` is the previous spaceship office. The “Aussehen” switch changes it at once; a new file `web/bibliothek/<name>.js` shows up there by itself.
 - **Control panel** per robot or job, with a plain-language diagnosis (e.g. “the program lacks Full Disk Access”) and a button that opens the right privacy settings.
 - **Wall boards** with system check, all jobs, backups and open cases.
 - **Plugins** (`plugins/*.py`): your own data sources for robots, e.g. a database or a web API.
@@ -90,7 +90,7 @@ config.example.json    example configuration
 web/index.html         page
 web/app.js             robots, live status, control panel, secretariat/doctor, Mutter
 web/welt.js            builds the world from rooms + library, path finding
-web/bibliothek/        look (standard.js = spaceship office)
+web/bibliothek/        look (neon.js = control room, standard.js = spaceship office)
 raeume/                room templates (JSON)
 plugins/               example plugin
 scripts/               install as a LaunchAgent
